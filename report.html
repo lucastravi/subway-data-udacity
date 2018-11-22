@@ -18034,10 +18034,16 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Gerar um gráfico para estimar a quantidade de dias chuvosos (rain=1)</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Para este exercício vou apresentar duas soluções.</span>
+<span class="sd">Primeiro a solução sugerida pelo instrutor</span>
+<span class="sd">E depois outra usando pandasql</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">def</span> <span class="nf">num_rainy_days_1</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">rainy_days</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">rain</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;DATEn&#39;</span><span class="p">))</span>
+    <span class="k">print</span> <span class="s2">&quot;A quantidade de dias chuvosos neste mês foi:&quot;</span><span class="p">,</span><span class="n">rainy_days</span>
+
+<span class="n">num_rainy_days_1</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -18050,30 +18056,13 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[14]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x2cfb3ba8&gt;</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
     <div class="prompt"></div>
 
 
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A quantidade de dias chuvosos neste mês foi: 10
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -18085,13 +18074,44 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">num_rainy_days</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">count</span><span class="o">+=</span><span class="mi">1</span>
-    <span class="k">return</span> <span class="n">count</span>
-<span class="n">num_rainy_days</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Primeiro é necessário instalar o pacote pandasql</span>
+<span class="kn">from</span> <span class="nn">pandasql</span> <span class="kn">import</span> <span class="n">sqldf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Documentação do pacote <a href="https://pypi.org/project/pandasql/"><code>pandasql</code></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">num_rainy_days_2</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">pysqldf</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">:</span> <span class="n">sqldf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="nb">globals</span><span class="p">())</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Criar uma query que agrupe todos os dias chuvosos numa só matriz</span>
+<span class="sd">    Neste caso qualquer coluna pode ser selecionada</span>
+<span class="sd">    A coluna rain foi escolhida por motivos de coerência com a função</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT rain FROM df WHERE rain==1 GROUP BY DATEn&quot;&quot;&quot;</span>
+    <span class="n">rainy_days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pysqldf</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+    <span class="c1"># Será demonstrada um vetor com dez 1&#39;s</span>
+    <span class="k">print</span> <span class="n">rainy_days</span>
+    <span class="c1"># Retornar o comprimento da matriz, que será a quantidade de dias chuvosos</span>
+    <span class="k">print</span> <span class="s2">&quot;A quantidade de dias chuvosos neste mês foi:&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">rainy_days</span><span class="p">)</span>
+
+<span class="n">num_rainy_days_2</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -18104,28 +18124,28 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[15]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>44104</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A função retornou uma quantidade condizente com o que pode ser observado no gráfico (countplot) acima.</p>
-
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[1.]
+ [1.]
+ [1.]
+ [1.]
+ [1.]
+ [1.]
+ [1.]
+ [1.]
+ [1.]
+ [1.]]
+A quantidade de dias chuvosos neste mês foi: 10
+</pre>
 </div>
 </div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -18138,59 +18158,12 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Quantidade de dias nebulosos (0) e não nebulosos (1)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;fog&#39;</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[16]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10fc66a0&gt;</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Temperatura máxima nos dias nebulosos (0) ou não (1)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="c1"># Temperatura máxima nos dias nebulosos (0) ou não (1)</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fog&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;maxtempi&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -18234,21 +18207,6 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Primeiro é necessário instalar o pacote pandasql</span>
-<span class="kn">from</span> <span class="nn">pandasql</span> <span class="kn">import</span> <span class="n">sqldf</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">max_temp_aggregate_by_fog</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="n">pysqldf</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">:</span> <span class="n">sqldf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="nb">globals</span><span class="p">())</span>
     <span class="n">q</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT fog, MAX(maxtempi) FROM df WHERE fog==0&quot;&quot;&quot;</span>
@@ -18268,7 +18226,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[19]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
@@ -18283,17 +18241,9 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Documentação do pacote <a href="https://pypi.org/project/pandasql/"><code>pandasql</code></a></p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Testando a função para dias sem neblina (df[&#39;fog&#39;]==1)</span>
@@ -18316,7 +18266,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[20]:</div>
+    <div class="prompt output_prompt">Out[19]:</div>
 
 
 
@@ -18349,7 +18299,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Criar uma coluna que transforme cada uma das datas em dias da semana (de 0 a 6)</span>
@@ -18367,7 +18317,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
@@ -18548,7 +18498,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Temperatura média para cada dia da semana</span>
@@ -18565,13 +18515,13 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[22]:</div>
+    <div class="prompt output_prompt">Out[21]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x2b337e80&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x33839b38&gt;</pre>
 </div>
 
 </div>
@@ -18597,7 +18547,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">avg_weekend_temperature</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -18619,7 +18569,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[23]:</div>
+    <div class="prompt output_prompt">Out[22]:</div>
 
 
 
@@ -18652,7 +18602,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">avg_min_temperature</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -18674,7 +18624,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[24]:</div>
+    <div class="prompt output_prompt">Out[23]:</div>
 
 
 
@@ -18705,7 +18655,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s2">&quot;Quantidade máxima de pessoas a entrar no metrô:&quot;</span><span class="p">,</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ENTRIESn_hourly&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
@@ -18736,7 +18686,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s2">&quot;Quantidade média de pessoas a entrar no metrô:&quot;</span><span class="p">,</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ENTRIESn_hourly&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -18767,7 +18717,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -18793,7 +18743,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt output_prompt">Out[26]:</div>
 
 
 
@@ -18825,7 +18775,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">entries_histogram_zoom</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -18850,7 +18800,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[28]:</div>
+    <div class="prompt output_prompt">Out[27]:</div>
 
 
 
@@ -18882,7 +18832,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">entries_histogram_zoom2</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -18907,7 +18857,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[29]:</div>
+    <div class="prompt output_prompt">Out[28]:</div>
 
 
 
@@ -18948,7 +18898,7 @@ Abaixo está um exemplo sobre como traçar histogramas com pandas e matplotlib:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong> Resposta </strong>: A distribuição dos dados é retorcida à direita. O que indica que existem valores muito acima da média e da mediana da distribuição. Os gráficos com zoom ajudam a elucidar essa teoria de modo a mostrar que temos poucas entradas acima de 10 mil pessoas por hora, mas mesmo assim existem registros de até 51839 entradas em uma hora. A média de entradas por hora fica em torno de 1095 entradas por hora.
+<p><strong> Resposta </strong>: A distribuição dos dados é positiva. O que indica que existem valores muito acima da média e da mediana da distribuição. Os gráficos com zoom ajudam a elucidar essa teoria de modo a mostrar que temos poucas entradas acima de 10 mil pessoas por hora, mas mesmo assim existem registros de até 51839 entradas em uma hora. A média de entradas por hora fica em torno de 1095 entradas por hora.
 Há uma maior tendência nas pessoas usarem o metrô em dias chuvosos do que em dias não chuvosos.</p>
 
 </div>
@@ -18968,7 +18918,7 @@ Há uma maior tendência nas pessoas usarem o metrô em dias chuvosos do que em 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -18998,7 +18948,7 @@ Há uma maior tendência nas pessoas usarem o metrô em dias chuvosos do que em 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[30]:</div>
+    <div class="prompt output_prompt">Out[29]:</div>
 
 
 
@@ -19046,7 +18996,7 @@ Há uma maior tendência nas pessoas usarem o metrô em dias chuvosos do que em 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
@@ -19081,7 +19031,7 @@ Há uma maior tendência nas pessoas usarem o metrô em dias chuvosos do que em 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">reducer</span><span class="p">():</span>
